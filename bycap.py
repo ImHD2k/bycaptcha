@@ -12,17 +12,17 @@ def resolveCaptcha(browser):
     # Wait for recaptcha to load
     WebDriverWait(browser, 20).until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
     browser.switch_to.frame(browser.find_elements_by_tag_name("iframe")[0])
-    # Check if captcha is alredy solve
+    # Check if captcha is already solve
     if str(browser.find_element_by_id('recaptcha-anchor').get_attribute("aria-checked")) == "true":
         browser.switch_to.default_content()
-        return 2 # Alredy solve
+        return 2 # already solve
     # Click on captcha checkbox
     browser.find_element_by_id('recaptcha-anchor').click()
     # Switch to ReCaptcha challenge iframe
     browser.switch_to.default_content()
     browser.switch_to.frame(browser.find_element_by_css_selector('iframe[title="recaptcha challenge"]'))
     sleep(1)
-    # Check if captcha is alredy open
+    # Check if captcha is already open
     try:
         browser.find_element_by_class_name('rc-button-audio').click()
     except:
